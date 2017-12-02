@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link type="text/css" rel="stylesheet" href="App/Content/css/bootstrap.min.css">
+    <link type="text/css" rel="stylesheet" href="App/Content/css/reset.css">
+    <link type="text/css" rel="stylesheet" href="App/Content/css/common.css">
+    <style type="text/css">
+        .act {
+            background-color: red;
+        }
+        .iconfont{
+            display: block;
+            width: 5px;
+            height: 5px;
+            background: red;
+        }
+    </style>
+</head>
+<body ng-app="app" class="container">
+<div ng-if="false"  ng-controller="userInfoController" class="pt20">
+    <h3 class="text-center">
+        {{title}}
+    </h3>
+
+    <div>
+        <input type="text" placeholder="快点点我呀" ng-model="search" ng-keypress="activeation()">
+        {{time| date:"yy-MM-dd HH:mm:ss"}}
+    </div>
+    <ul class="p10">
+        <li class="p10 bdb1" ng-repeat="user in userinfo | filter :search| orderBy:'gender':true"
+            ng-class-even="'alert-warning'" ng-class-odd="'alert-success'">
+            userid：{{user.userid}}<br/>
+            username：{{user.username}}<br/>
+            gender：{{user.gender}}<br/>
+            address：{{user.address}}<br/>
+            cellphone：{{user.cellphone}}<br/>
+            email：{{user.email}}
+        </li>
+        <div ng-mouseenter="activeation()">快点点我！</div>
+    </ul>
+</div>
+<div ng-if="false" ng-controller="loginController" class="pt20">
+    <h3 class="text-center">
+        {{title}}
+        <small ng-init="subTitle='- 学生登陆信息平台'">{{subTitle}}</small>
+    </h3>
+
+    <div class=" mt25">
+        <form class="list-group" action="" novalidate>
+            <div class="list-group-item">
+                <label for="">
+                    用户名：
+                </label>
+                <input
+                        type="text"
+                        class="form-control"
+                        ng-model="userinfo.username"
+                        placeholder=""
+                        required/>
+            </div>
+            <div class="list-group-item">
+                <label for="">
+                    密码：
+                </label>
+                <input
+                        type="text"
+                        class="form-control"
+                        ng-model="userinfo.password"
+                        placeholder=""
+                        required>
+            </div>
+            <div class="list-group-item">
+                <label class="pt20 pb20" for="">爱好</label>
+                <ul class="list-group">
+                    <li ng-repeat="hoby in userinfo.hoby" class="list-group-itemt">{{hoby}}</li>
+                </ul>
+            </div>
+            <div class="list-group-item">
+                <label class="pt20 pb20" for="">建议：</label>
+                <ul>
+                    <li ng-repeat="sug in suggestion">
+                        <input type="checkbox" ng-model="sug.checked" ng-click="checkall()" name="" id=""/>
+                        {{sug.name}}
+                    </li>
+                </ul>
+                <div ng-show="flag">
+                    恭喜你，你中标了！
+                </div>
+            </div>
+            <div>
+                <input type="checkbox" id="readme" ng-model="readme"/>
+                <label for="readme">
+                    咱们老百姓啊，今儿个真高兴！
+                </label>
+            </div>
+            <div class="p10 text-center" ng-show="readme">
+                <button type="button" class="btn btn-success" ng-class="{true:'btn-warning',false:'btn-info'}[flag]"
+                        ng-click="getuser()">提交
+                </button>
+                <button type="reset" class="btn btn-success">清空</button>
+            </div>
+        </form>
+    </div>
+</div>
+<div ng-controller="registryController">
+   <div ng-repeat="menu in menulist">
+       {{menu.title}}
+       <span ng-class="menu.icons"></span>
+   </div>
+</div>
+<script type="text/javascript" src="App/Script/mock.min.js"></script>
+<script type="text/javascript" src="App/Script/angular.min.js"></script>
+<script type="text/javascript" src="App/app.js"></script>
+<script type="text/javascript" src="App/Controller/loginController.js"></script>
+<script type="text/javascript" src="App/Controller/registryController.js"></script>
+<script type="text/javascript" src="App/Controller/userInfoController.js"></script>
+</body>
+</html>
